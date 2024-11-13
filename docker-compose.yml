@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  bbprime-mongo:
+    image: mongo:latest
+    restart: always
+    command: --port 27017
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - bbprime-app-network
+  bbprime-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: bbprime-backend
+    restart: always
+    container_name: bbprime-backend-container
+    command: /usr/src/app/node_modules/.bin/nodemon server.js
+    volumes:
+      - ./backend/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5000:5000"
+    depends_on:
+      - bbprime-mongo
+    env_file: ./backend/.env_dev
+    environment:
+      - NODE_ENV=development
+    networks:
+      - bbprime-app-network
+  bbprime-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile  
+    container_name: bbprime-frontend-container
+    command: npm start
+    volumes:
+      - ./frontend/public:/usr/src//app/public
+      - ./frontend/src:/usr/src//app/src
+      - ./frontend/package.json:/usr/src//app/package.json      
+    depends_on:
+      - bbprime-backend
+
+    ports:
+      - "3000:3000"
+    networks:
+      - bbprime-app-network
+networks:
+    bbprime-app-network:
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local

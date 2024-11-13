@@ -1,0 +1,9 @@
+.scroll-container {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+}
+.list-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
