@@ -24,26 +24,27 @@ const getNewsArticleList = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get News Article
-// @route   GET /api/news/:title
+// @route   GET /api/news/:id
 // @access  Public
 const getNewsArticle = asyncHandler(async (req, res) => {
-  const news = await News.find({"title": req.title});
+  const news = await News.findById(req.params.id);
 
   if (news) {
     res.json({
-      title: newsList.title,
-      summary: newsList.summary,
-      content: newsList.content,
-      category: newsList.category,
-      location: newsList.location,
-      visible: newsList.visible,
+      id: news._id,
+      title: news.title,
+      summary: news.summary,
+      content: news.content,
+      category: news.category,
+      location: news.location,
+      visible: news.visible,
     });
+    // res.send();
   } else {
     res.status(404);
     throw new Error('News article not found');
   }
 });
-
 
 
 // @desc    Create News Article
@@ -52,7 +53,6 @@ const getNewsArticle = asyncHandler(async (req, res) => {
 const postNewsArticle = asyncHandler(async (req, res) => {
   const { title, summary, content, location, category, visible  } = req.body;
   var filter = {'title': title};
-
   const doc = await News.findOneAndUpdate(filter, req.body, { upsert: true, new: true });
   return res.send('Succesfully Created News Article.')
 
@@ -60,27 +60,21 @@ const postNewsArticle = asyncHandler(async (req, res) => {
 
 
 // @desc    Update News Article
-// @route   UPDATE /api/news
+// @route   UPDATE /api/news/:id
 // @access  Private
 const updateNewsArticle = asyncHandler(async (req, res) => {
   const { title, summary, content, location, category, visible  } = req.body;
-  var filter = {'title': title};
-
+  var filter = { _id: req.params.id };
   const doc = await News.findOneAndUpdate(filter, req.body, { upsert: true, new: true });
   return res.send('Succesfully Updated News Article.')
 });
 
 // @desc    Delete News Article
-// @route   DELETE /api/news
+// @route   DELETE /api/news/:id
 // @access  Private
 const deleteNewsArticle = asyncHandler(async (req, res) => {
-  const { title, summary, content, location, category, visible  } = req.body;
-  const newsExists = await News.find({ 'title': title });
-
-  if (newsExists) {
-    const news = await News.find({ 'title': title }).remove().exec();
-    return res.send('Succesfully Deleted.')
-  }
+  const news = await News.findById(req.params.id).remove().exec();
+  return res.send('Succesfully Updated News Article.')
 });
 
 

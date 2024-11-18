@@ -12,16 +12,15 @@ export const newsApiSlice = newsApiBaseSlice.injectEndpoints({
     }),
     newsUpdate: builder.mutation({
       query: (data) => ({
-        url: `${NEWS_URL}`,
+        url: `${NEWS_URL}/${params.id}`,
         method: 'PUT',
         body: data,
       }),
     }),    
     newsDelete: builder.mutation({
-      query: () => ({
-        url: `${NEWS_URL}`,
+      query: params => ({
+        url: `${NEWS_URL}/${params.id}`,
         method: 'DELETE',
-        body: data,
       }),
     }),
     newsGetList: builder.mutation({
@@ -31,8 +30,8 @@ export const newsApiSlice = newsApiBaseSlice.injectEndpoints({
       }),
     }),
     newsGet: builder.mutation({
-      query: () => ({
-        url: `${NEWS_URL}/{title}`,
+      query: params => ({
+        url: `${NEWS_URL}/${params.id}`,
         method: 'GET',
       }),
     }),

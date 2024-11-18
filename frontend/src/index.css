@@ -1,4 +1,4 @@
-.scroll-container {
+.news-scroller {
     height: 200px;
     overflow-y: scroll;
     border: 1px solid #ccc;
@@ -6,4 +6,44 @@
 .list-item {
     padding: 10px;
     border-bottom: 1px solid #eee;
+}
+
+
+/* The side navigation menu */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 50;
+    left: 0;
+    background-color: yellow;
+    padding-top: 20px;
+}
+
+/* Sidebar links */
+.sidebar a {
+    padding: 15px 8px 15px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+}
+
+/* Active/current link */
+.sidebar a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+
+/* Page content */
+.content {
+    margin-left: 200px;
+    padding: 20px;
 }

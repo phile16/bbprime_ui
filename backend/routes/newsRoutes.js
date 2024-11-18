@@ -10,12 +10,12 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const newsRouter = express.Router();
 
-// TODO: Move  back to protected after test
+// TODO: Move  back to protected after user stuff
 newsRouter.post('/', postNewsArticle);
-newsRouter.put('/', updateNewsArticle);
-newsRouter.delete('/', deleteNewsArticle);
+newsRouter.put('/:id', updateNewsArticle);
+newsRouter.delete('/:id', deleteNewsArticle);
 newsRouter.get('/', getNewsArticleList);
-newsRouter.get('/:title', getNewsArticle);
+newsRouter.get('/:id', getNewsArticle);
 
 // newsRouter
 //   .route('/api/news')

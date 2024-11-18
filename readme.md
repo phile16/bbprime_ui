@@ -1,4 +1,4 @@
-# BBPRIME News Outlet and Analytics Tool
+# BBPRIME Content Management System
 
 https://github.com/bradtraversy/mern-auth.git
 
@@ -36,6 +36,7 @@ Change the JWT_SECRET to what you want
 npm install
 cd frontend
 npm install
+npm install @mui/material @emotion/react @emotion/styled
 ```
 
 ### Run
@@ -56,3 +57,14 @@ npm run server
 cd frontend
 npm run build
 ```
+ 
+
+docker exec -it bbprime-ui_bbprime-mongo_1 bash
+mongosh --port=20717
+use bbprime
+
+
+
+db.users.update({"username": 'phile16'}, {$set:{"isVerified": "true"}})
+db.users.update({"username": 'phile16'}, {$set:{"expires": undefined}})
+db.users.update({"username": 'phile16'}, {$set:{"isAdmin": "true"}})
