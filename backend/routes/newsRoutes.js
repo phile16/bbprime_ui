@@ -13,7 +13,7 @@ const newsRouter = express.Router();
 // TODO: Move  back to protected after user stuff
 newsRouter.post('/', postNewsArticle);
 newsRouter.put('/:id', updateNewsArticle);
-newsRouter.delete('/:id', deleteNewsArticle);
+newsRouter.delete('/:articleId', deleteNewsArticle);
 newsRouter.get('/', getNewsArticleList);
 newsRouter.get('/:id', getNewsArticle);
 

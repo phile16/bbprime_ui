@@ -45,7 +45,7 @@ services:
       - bbprime-backend
 
     ports:
-      - "3001:3000"
+      - "3001:3001"
     networks:
       - bbprime-app-network
 networks:

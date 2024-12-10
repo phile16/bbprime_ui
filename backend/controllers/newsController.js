@@ -24,14 +24,15 @@ const getNewsArticleList = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get News Article
-// @route   GET /api/news/:id
+// @route   GET /api/news/:articleId
 // @access  Public
-const getNewsArticle = asyncHandler(async (req, res) => {
+const getNewsArticle = asyncHandler(async (req, res) => { 
+  // console.log(req.params)
   const news = await News.findById(req.params.id);
 
   if (news) {
     res.json({
-      id: news._id,
+      articleId: news._id,
       title: news.title,
       summary: news.summary,
       content: news.content,
@@ -39,7 +40,6 @@ const getNewsArticle = asyncHandler(async (req, res) => {
       location: news.location,
       visible: news.visible,
     });
-    // res.send();
   } else {
     res.status(404);
     throw new Error('News article not found');
@@ -53,28 +53,55 @@ const getNewsArticle = asyncHandler(async (req, res) => {
 const postNewsArticle = asyncHandler(async (req, res) => {
   const { title, summary, content, location, category, visible  } = req.body;
   var filter = {'title': title};
-  const doc = await News.findOneAndUpdate(filter, req.body, { upsert: true, new: true });
-  return res.send('Succesfully Created News Article.')
+  const news = await News.findOneAndUpdate(filter, req.body, { upsert: true, new: true });
+  // console.log(news);
+  // if (news) {
+  //   // return res.send('Succesfully Created News Article.')
+  //   return res.json({"articleId":news._id})
+  // } else  {
+  //   res.status(404);
+  //   return res.send('Failed to create news article.')
 
+  // }
 });
 
 
 // @desc    Update News Article
-// @route   UPDATE /api/news/:id
+// @route   UPDATE /api/news/:articleId
 // @access  Private
 const updateNewsArticle = asyncHandler(async (req, res) => {
-  const { title, summary, content, location, category, visible  } = req.body;
-  var filter = { _id: req.params.id };
-  const doc = await News.findOneAndUpdate(filter, req.body, { upsert: true, new: true });
-  return res.send('Succesfully Updated News Article.')
+  const { articleId, title, summary, content, location, category, visible  } = req.body;
+  var filter = { _id: req.params.articleId };
+  var updatedDoc = {
+    title: title,
+    summary: summary,
+    content: content,
+    category: category,
+    location: location,
+    visible: visible,
+  }
+  const news = await News.findByIdAndUpdate(articleId, updatedDoc);
+  if (news) {
+    return res.send('Succesfully Updated News Article.')
+  } else {
+    res.status(404);
+    throw new Error('Update failed, news article not found');    
+  }
+  
 });
 
 // @desc    Delete News Article
-// @route   DELETE /api/news/:id
+// @route   DELETE /api/news/:articleId
 // @access  Private
 const deleteNewsArticle = asyncHandler(async (req, res) => {
-  const news = await News.findById(req.params.id).remove().exec();
-  return res.send('Succesfully Updated News Article.')
+  const news = await News.findByIdAndDelete(req.params.articleId);
+  console.log(news);
+  // if (news) {
+  //   return res.send('Succesfully Deleted News Article.')
+  // } else {
+  //   res.status(404);
+  //   throw new Error('Delete failed, news article not found');    
+  // }
 });
 
 

@@ -18,12 +18,15 @@ const newsSchema = mongoose.Schema(
     category: {
       type: String,
       required: false,
-      default: false,
+    },
+    weight: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     location: {
       type: String,
       required: false,
-      default: false,
     },
     visible: {
       type: Boolean,

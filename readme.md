@@ -17,6 +17,15 @@ It includes the following:
 ## Usage
 
 
+### Start Web Analytics Server
+This will start a bare bones API Server for the webalytics
+It uses the same monngo started in the docker-compose
+
+cd webanalytics
+node server.js
+
+
+
 ### Env Variables
 
 Rename the `.env.example` file to `.env` and add the following
@@ -43,7 +52,7 @@ npm install @mui/material @emotion/react @emotion/styled
 
 ```
 
-# Run frontend (:3000) & backend (:5000)
+# Run frontend (:3001) & backend (:5000)
 npm run start
 
 # Run backend only

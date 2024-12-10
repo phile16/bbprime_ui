@@ -8,15 +8,16 @@ export default defineConfig({
   })],
   host: true,
   server: {
-    port: 3000,
+    port: 3001,
     watch: {
       usePolling: true
     },    
     proxy: {
       '/api': {
-        target: 'http://bbprime-backend:5000',
+        // target: 'http://bbprime-backend:5000',
+        target: 'http://localhost:5000',
         changeOrigin: true,
-      },      
+      },
     },
   },
 });

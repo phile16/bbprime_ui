@@ -1,4 +1,6 @@
-import { Container, Card, Button } from 'react-bootstrap';
+import { Container, Card, Button, Form } from 'react-bootstrap';
+import HoverAnalyticsDisplay from '../components/webstatistics/HoverAnalyticsDisplay/HoverAnalyticsDisplay';
+import FormContainer from '../components/FormContainer';
 
 const Consent = () => {
   return (
@@ -9,14 +11,28 @@ const Consent = () => {
           <p className='text-center mb-4'>
             Consent stuff Goes Here
           </p>
-          <div className='d-flex'>
-            <Button variant='primary' href='/instructions' className='me-3'>
-              I Totally Agree!!
-            </Button>
 
-          </div>
+          <FormContainer>
+              <Form >
+                <Form.Group controlId='prolificID'>
+                  <Form.Label>Prolific ID</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='Enter Prolific ID'
+
+                  ></Form.Control>
+                </Form.Group>
+              </Form>
+            </FormContainer>
+
+          <Button variant='primary' href='/instructions' className='me-3'>
+            I Totally Agree!!
+          </Button>
+
         </Card>
+        <HoverAnalyticsDisplay />
       </Container>
+
     </div>
   );
 };

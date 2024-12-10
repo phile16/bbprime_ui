@@ -13,8 +13,14 @@ COPY package.json .
 # Layer 5: Installing the dependencies listed in the package.json file.
 RUN npm install
 
+
 # Layer 6: Copying all the files from the root of the project to the `app` directory in the container.
 COPY . .
+
+# RUN cd forager2 & npm run clean & npm run dev & cd ..
+
+# RUN npm i ./forager2
+
 
 # Layer 7: Telling Docker that the container will listen on port 3000.
 EXPOSE 3000

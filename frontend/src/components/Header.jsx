@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className='bbp-header'>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
