@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <header className='bbp-header'>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect style={{"height":"100%"}}>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>BBPRIME News Outlet</Navbar.Brand>

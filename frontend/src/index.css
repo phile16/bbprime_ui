@@ -1,7 +1,7 @@
 .bbp-header {
-    /* background: #f22d3a !important;
-    border-bottom-color: #f22d3a !important; */
-    background-color: black;
+    background: #f22d3a !important;
+    border-bottom-color: #f22d3a !important;
+    /* background-color: black; */
     color: white;
     position: fixed;
     width: 100%;
@@ -10,16 +10,19 @@
     text-align: center;
     /* padding: 20px; */
     font-weight: bold;
-    transition:  0.8s;
+    transition: 0.8s;
     z-index: 1;
+    height: 100px;
 }
 
 .bbp-content {
-    width:80%;
+    width: 80%;
     margin: auto;
     overflow-y: scroll;
     z-index: 100;
     margin-bottom: 100px;
+    margin-top: 100px;
+    padding-top: 30px;
 }
 
 .bbp-footer {
@@ -42,17 +45,38 @@
 }
 
 
-.news-editor{
+.news-editor {
     width: 100%;
+    left: 300px;
+    /* Goes with sidebar width */
 }
+
+
+
 
 .news-content-editor {
     width: 100%;
     height: 400px;
 }
 
+/* Override react */
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
 
-    
+
 .news-scroller {
     height: 200px;
     overflow-y: scroll;
@@ -121,11 +145,11 @@
 }
 
 #FeaturedNewsDiv {
-    background-color: gray;
+    /* background-color: gray; */
     float: left;
     margin-right: 0px;
     width: 24%;
-    border-right: 2px solid #000;
+    border: 1px solid gray;
     overflow: hidden;
     min-width: 375px;
     height: 800px !important;
@@ -134,13 +158,13 @@
     padding: 5px;
 }
 
-#MajorNewsDiv {
+#FeaturedSlidesNewsDiv {
     background-color: white;
     float: left;
     overflow: hidden;
     width: 49%;
     margin: 0px;
-    border: 2px dashed #ccc;
+    /* border: 2px dashed #ccc; */
     min-height: 170px;
     min-width: 375px;
     height: 800px !important;
@@ -236,3 +260,18 @@
 }
 
 
+.bbp-marquee-card {
+    height: 100px !important;
+    overflow: hidden;
+    /* Hides the text that overflows the container */
+    text-overflow: ellipsis;
+    /* Adds an ellipsis to signify hidden text */
+}
+
+.bbp-news-featured {
+    height: 800px !important;
+}
+
+.bbp-news-slides {
+    height: 800px !important;
+}

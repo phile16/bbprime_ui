@@ -19,6 +19,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 import ConsentScreen from './screens/ConsentScreen.jsx';
 import InstructionsScreen from './screens/InstructionsScreen.jsx';
 import NewsScreen from './screens/NewsScreen.jsx';
+import NewsArticle from './screens/NewsArticle.jsx';
 import NewsEditorScreen from './screens/NewsEditorScreen.jsx';
 
 const router = createBrowserRouter(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path='/consent' element={<ConsentScreen />} />
         <Route path='/instructions' element={<InstructionsScreen />} />
         <Route path='/news' element={<NewsScreen />} />
+        <Route path='/newsArticle/:id' element={<NewsArticle/>} />
         <Route path='/manageNews' element={<NewsEditorScreen />} />
       </Route>
     </Route>

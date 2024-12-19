@@ -1,17 +1,30 @@
 import { Container, Card, Button } from 'react-bootstrap';
+import parse from 'html-react-parser';
 
-const NewsLatest= () => {
+const NewsLatest= ({ articles }) => {
   return (
     <div className=''>
-      <Container className='d-flex justify-content-center'>
-        <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75'>
-          <h1 className='text-center mb-4'>News Latest</h1>
-          <p className='text-center mb-4'>
-            Topics
-            -- SubTopic
-          </p>
+      <Container className=''>
+        {articles &&
+            articles.map((article, index) => (
+              <div key={index}>
+                <Card className="">
+                  <h3 className=''>{article[1]["title"]}</h3>
+                  <div>
+                    {parse(article[1]["summary"])}
+                  </div>
+                </Card>
+              </div>
 
-        </Card>
+            ))
+          }
+          {!articles &&
+            <div>
+              <Card>
+                <h3 className=''>Loading, please wait...</h3>
+              </Card>
+            </div>
+          }
       </Container>
     </div>
   );

@@ -44,7 +44,7 @@ const NewsEditorScreen = () => {
 
   //useEffect
   //OnLoad get all news articles
-  // Dont think I need useEffect here
+
   useEffect(() => {
     const fetchData = async () => {
       await getNewsArticleList();
@@ -188,19 +188,24 @@ const NewsEditorScreen = () => {
       <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
       <h1>Manage News Articles</h1>
       <Form className="sidebar" id='selectArticleIdForm'>
-        <h3>Select Article to Edit</h3>
-
-        <select value={articleId} size="5" onChange={changeArticleId} className="sidebar-select">
-
-          {newsListData ?
-            newsListData.map((article, index) => {
-              return (
-                <option value={article._id}>{article.title}</option>
-              )
-            })
-            : <p>nada</p>
-          }
-        </select>
+        <Form.Group className="sidebar-select">
+          <Form.Label>Manage News Articles</Form.Label>
+          <Form.Control
+            as="select"
+            value={articleId}
+            onChange={changeArticleId}
+            // multiple
+          >
+            {newsListData ?
+              newsListData.map((article, index) => {
+                return (
+                  <option value={article._id}>{article.title}</option>
+                )
+              })
+              : <p>nada</p>
+            }
+          </Form.Control>
+        </Form.Group>
 
       </Form>
 
@@ -214,7 +219,7 @@ const NewsEditorScreen = () => {
             value={articleId}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className='my-2' controlId='title'>
+        <Form.Group controlId='title'>
           <Form.Label>Title</Form.Label>
           <Form.Control
             type='text'
@@ -223,7 +228,7 @@ const NewsEditorScreen = () => {
             onChange={(e) => setTitle(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className='my-2' controlId='summary'>
+        <Form.Group controlId='summary'>
           <Form.Label>Summary</Form.Label>
           <Form.Control
             type='text'
@@ -233,7 +238,7 @@ const NewsEditorScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className='my-2' controlId='content'>
+        <Form.Group controlId='content'>
           <Form.Label>Content</Form.Label>
           <div style={{ width: '100%', height: '100%', border: '1px solid lightgray' }} id='content' className='clearfix'>
             <div ref={quillRef}>
@@ -241,16 +246,6 @@ const NewsEditorScreen = () => {
           </div>
         </Form.Group>
 
-
-        {/* <Form.Group className='my-2' controlId='content'>
-          <Form.Label>Content</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter content'
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          ></Form.Control>
-        </Form.Group> */}
 
 
         <Form.Group className='clearfix' controlId='category'>
@@ -263,24 +258,30 @@ const NewsEditorScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className='my-2' controlId='location'>
+        <Form.Group controlId='location'>
           <Form.Label>Location</Form.Label>
-          <select value={location} onChange={locationChangeHandler} multiple>
+          <Form.Control
+            as="select"
+            value={location}
+            multiple
+            onChange={locationChangeHandler}
+          >
             <option value="Marquee">Marquee</option>
             <option value="Featured">Featured</option>
             <option value="FeaturedSlide">Slides</option>
             <option value="Latest">Latest</option>
-            <option value="Trending">Latest</option>
-          </select>
+            <option value="Trending">Trending</option>
+          </Form.Control>
         </Form.Group>
 
-        <Form.Group className='my-2' controlId='visible'>
-          <Form.Label>Visibility</Form.Label>
+        <Form.Group controlId='visible'>
+          <Form.Label>Enabled</Form.Label>
           <Form.Check
             type='checkbox'
             placeholder='Visible'
             value={visible}
-            onChange={(e) => setVisible(e.target.value)}
+            checked={visible}
+            onChange={(e) => setVisible(e.target.checked)}
           ></Form.Check>
         </Form.Group>
 

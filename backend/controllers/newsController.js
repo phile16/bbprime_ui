@@ -46,6 +46,52 @@ const getNewsArticle = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get News Article By Location
+// @route   GET /api/news/location/:location
+// @access  Public
+const getNewsArticleByLocation = asyncHandler(async (req, res) => { 
+  // console.log(req.params)
+  var filter = {'location': req.params.location, "visible": true};
+  const newsList = await News.find(filter);
+
+  var newsListMap = {}
+
+  if (newsList) {
+    newsList.forEach(function(news, index) {
+      news = {
+        "title": news.title,
+        "summary": news.summary,
+        "content": news.content,
+        "category": news.category,
+        "articleId": news._id,
+      }
+      newsListMap[index] = news;
+    });
+
+    res.send(newsListMap);
+    
+  } else {
+    res.status(404);
+    throw new Error('News articles not found');
+  }
+
+
+  // if (news) {
+  //   res.json({
+  //     articleId: news._id,
+  //     title: news.title,
+  //     summary: news.summary,
+  //     content: news.content,
+  //     category: news.category,
+  //     location: news.location,
+  //     visible: news.visible,
+  //   });
+  // } else {
+  //   res.status(404);
+  //   throw new Error('News article not found');
+  // }
+});
+
 
 // @desc    Create News Article
 // @route   POST /api/news
@@ -111,4 +157,5 @@ export {
   getNewsArticleList,
   postNewsArticle,
   updateNewsArticle,
+  getNewsArticleByLocation,
 };

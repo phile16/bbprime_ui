@@ -36,6 +36,13 @@ export const newsApiSlice = newsApiBaseSlice.injectEndpoints({
       }),
     }),
 
+    newsGetByLocation: builder.mutation({
+      query: params => ({
+        url: `${NEWS_URL}/location/${params.location}`,
+        method: 'GET',
+      }),
+    }),
+
   }),
 });
 
@@ -45,5 +52,6 @@ export const {
   useNewsDeleteMutation,
   useNewsGetListMutation,
   useNewsGetMutation,
+  useNewsGetByLocationMutation,
 } = newsApiSlice;
 

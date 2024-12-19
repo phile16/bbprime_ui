@@ -14,8 +14,8 @@ export default defineConfig({
     },    
     proxy: {
       '/api': {
-        // target: 'http://bbprime-backend:5000',
-        target: 'http://localhost:5000',
+        // target: 'http://bbprime-backend:5000', // testing from front end container
+        target: 'http://localhost:5000', //testing front end command line start
         changeOrigin: true,
       },
     },
