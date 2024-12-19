@@ -15,6 +15,7 @@ import { useNewsGetByLocationMutation } from '../slices/newsApiSlice';
 
 import { TimeOnPageTracker } from '../components/webstatistics/TimeOnPageTracker/TimeOnPageTracker';
 import HoverTracker from '../components/webstatistics/HoverTracker/HoverTracker';
+import ClickTracker from '../components/webstatistics/ClickTracker/ClickTracker';
 
 
 const NewsScreen = () => {
@@ -91,14 +92,16 @@ const NewsScreen = () => {
     <div>
 
       <div className='newWrapper bbp-w-100'>
-        <NewsMarquee articles={newsMarqueeData && Object.entries(newsMarqueeData)} />
+        <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsMarquee">
+          <NewsMarquee articles={newsMarqueeData && Object.entries(newsMarqueeData)} />
+        </HoverTracker>
       </div>
 
       <div className='newWrapper'>
         <div id="FeaturedNewsDiv" className="bbp-w-25">
-          <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsFeatured">
-            <NewsFeatured articles={newsFeaturedData && Object.entries(newsFeaturedData[0])} />
-          </HoverTracker>
+            <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsFeatured">
+              <NewsFeatured articles={newsFeaturedData && Object.entries(newsFeaturedData[0])} />
+            </HoverTracker>
         </div>
         <div id="FeaturedSlidesNewsDiv" className="bbp-w-50">
           <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsSlider">
@@ -124,6 +127,7 @@ const NewsScreen = () => {
           </Tabs>
         </div>
       </div>
+      <ClickTracker/>
     </div>
 
   );

@@ -36,7 +36,17 @@ const TimeOnPageSchema = new mongoose.Schema({
 });
 const TimeOnPageData = mongoose.model('TimeOnPageData', TimeOnPageSchema);
 
-
+const ClickDataSchema = new mongoose.Schema({
+    element: String,
+    x: Number,
+    y: Number,
+    id: String,
+    className: String,
+    pageName: String,
+    user: String,
+    timestamp: { type: Date, default: Date.now }
+});
+const ClickData = mongoose.model('ClickData', ClickDataSchema);
 
 // API to receive hover data
 app.post('/api/hover', async (req, res) => {
@@ -82,6 +92,22 @@ app.get('/api/timeonpage', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch TimeOnPage data' });
     }
 });
+
+
+
+app.post('/api/clicks', async (req, res) => {
+    try {
+      const clickDataReq = req.body;
+      const clickData = new ClickData({ clickDataReq });
+      await clickData.save();
+      res.status(201).json({ message: 'Click data recorded', clickDataReq });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to record click data' });
+    }
+  });
+
+
+
 
 
 // TODO: put in .env and use config
