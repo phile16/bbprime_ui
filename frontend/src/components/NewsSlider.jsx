@@ -30,33 +30,33 @@ const NewsSlider = ({ articles }) => {
   return (
     <div >
       <Container >
-        <Carousel 
+        <Carousel
           responsive={responsive}
           autoPlay={true}
           autoPlaySpeed={3000}
           infinite={true}
         >
+          {articles &&
+            articles.map((article, index) => (
+              <div key={"NewssliderDiv_" + index}>
+                <Card className="bbp-news-slides">
+                  <h3 className='' id={"NewsLatest_" + (article[1]["title"] + "_" + "_title").replace(/[^a-z0-9]/gi, '_')}>{article[1]["title"]}</h3>
+                  <div id={"NewsLatest_" + (article[1]["title"] + "_" + "_text").replace(/[^a-z0-9]/gi, '_')}>
+                    {parse(article[1]["content"])}
+                  </div>
 
-        {articles &&
-          articles.map((article, index) => (
+                </Card>
+              </div>
+
+            ))
+          }
+          {!articles &&
             <div>
-              <Card className="bbp-news-slides">
-                <h3 className=''>{article[1]["title"]}</h3>
-                <div>
-                  {parse(article[1]["content"])}
-                </div>
+              <Card>
+                <h3 className='text-center mb-4'>Loading, please wait...</h3>
               </Card>
             </div>
-
-          ))
-        }
-        {!articles &&
-          <div>
-            <Card>
-              <h3 className='text-center mb-4'>Loading, please wait...</h3>
-            </Card>
-          </div>
-        }
+          }
 
         </Carousel>
       </Container>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // TimeOnPageTracker Component
-export const TimeOnPageTracker = ({ onTimeTracked, pageName, user }) => {
+export const TimeOnPageTracker = ({ onTimeTracked, pageName, user, pid }) => {
     const [startTime, setStartTime] = useState(Date.now());
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export const TimeOnPageTracker = ({ onTimeTracked, pageName, user }) => {
                 onTimeTracked(timeOnPage);
             }
 
-            console.log(JSON.stringify({ pageName, user, timeOnPage }));
+            //console.log(JSON.stringify({ pageName, user, timeOnPage, pid }));
             // Send the data directly to a backend API
            
             try {
@@ -23,7 +23,7 @@ export const TimeOnPageTracker = ({ onTimeTracked, pageName, user }) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ pageName, user, timeOnPage })
+                    body: JSON.stringify({ pageName, user, timeOnPage, pid })
                 });
             } catch (error) {
                 console.error('Failed to send TimeOnPageTracker data:', error);

@@ -92,19 +92,19 @@ const NewsScreen = () => {
     <div>
 
       <div className='newWrapper bbp-w-100'>
-        <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsMarquee">
+        <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsMarquee" pid={sessionStorage.getItem("sPid")}>
           <NewsMarquee articles={newsMarqueeData && Object.entries(newsMarqueeData)} />
         </HoverTracker>
       </div>
 
       <div className='newWrapper'>
         <div id="FeaturedNewsDiv" className="bbp-w-25">
-            <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsFeatured">
+            <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsFeatured" pid={sessionStorage.getItem("sPid")}>
               <NewsFeatured articles={newsFeaturedData && Object.entries(newsFeaturedData[0])} />
             </HoverTracker>
         </div>
         <div id="FeaturedSlidesNewsDiv" className="bbp-w-50">
-          <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsSlider">
+          <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsSlider" pid={sessionStorage.getItem("sPid")}>
             <NewsSlider articles={newsFeaturedSlideData && Object.entries(newsFeaturedSlideData)} />
           </HoverTracker>
         </div>
@@ -115,19 +115,23 @@ const NewsScreen = () => {
               <Tab>Trending</Tab>
             </TabList>
             <TabPanel>
-              <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsLatest">
+              <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsLatest" pid={sessionStorage.getItem("sPid")}>
                 <NewsLatest articles={newsLatestData && Object.entries(newsLatestData)} />
               </HoverTracker>
             </TabPanel>
             <TabPanel>
-              <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsTrending">
+              <HoverTracker pageName={window.location.pathname} user={userInfo.name} controlId="NewsTrending" pid={sessionStorage.getItem("sPid")}>
                 <NewsTrending articles={newsTrendingData && Object.entries(newsTrendingData)} />
               </HoverTracker>
             </TabPanel>
           </Tabs>
         </div>
       </div>
-      <ClickTracker/>
+
+      <ClickTracker pageName={window.location.pathname} user={userInfo.name}  pid={sessionStorage.getItem("sPid")}/>
+      <TimeOnPageTracker pageName="Instructions" user={userInfo.name} pid={sessionStorage.getItem("sPid")}/>
+      
+      <p>Pid: {sessionStorage.getItem("sPid")}</p>
     </div>
 
   );

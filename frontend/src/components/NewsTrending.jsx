@@ -7,7 +7,7 @@ const NewsTrending = ({ articles }) => {
       <Container className=''>
         {articles &&
             articles.map((article, index) => (
-              <div key={index}>
+              <div key={index + "_NewsTrending_" + article[1]["title"]} id={"NewsTrending_"+article[1]["title"]}>
                 <Card className="">
                   <h3 className=''>{article[1]["title"]}</h3>
                   <div>

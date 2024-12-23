@@ -4,7 +4,12 @@ import cors from "cors"
 
 const app = express();
 
-// TODO: put in .env and use config
+/* TODO: 
+1. put port and host in .env/.env_prod and use config
+2. Full MVC (mongoose model, exporess server/controller, api view ) with Analystics Package
+3. mongo url in .env/.env_prod
+*/
+
 const PORT = 5555;
 
 // Middleware
@@ -24,6 +29,7 @@ const HoverSchema = new mongoose.Schema({
     user: String,
     controlId: String,
     duration: Number,
+    pid: String,
     timestamp: { type: Date, default: Date.now }
 });
 const HoverData = mongoose.model('HoverData', HoverSchema);
@@ -32,6 +38,7 @@ const TimeOnPageSchema = new mongoose.Schema({
     pageName: String,
     user: String,
     timeOnPage: Number,
+    pid: String,
     timestamp: { type: Date, default: Date.now }
 });
 const TimeOnPageData = mongoose.model('TimeOnPageData', TimeOnPageSchema);
@@ -44,6 +51,7 @@ const ClickDataSchema = new mongoose.Schema({
     className: String,
     pageName: String,
     user: String,
+    pid: String,
     timestamp: { type: Date, default: Date.now }
 });
 const ClickData = mongoose.model('ClickData', ClickDataSchema);
@@ -51,8 +59,8 @@ const ClickData = mongoose.model('ClickData', ClickDataSchema);
 // API to receive hover data
 app.post('/api/hover', async (req, res) => {
     try {
-        const { pageName, user, controlId, duration } = req.body;
-        const hoverData = new HoverData({ pageName, user, controlId, duration });
+        const { pageName, user, controlId, duration, pid } = req.body;
+        const hoverData = new HoverData({ pageName, user, controlId, duration, pid });
         await hoverData.save();
         res.status(201).json({ message: 'Hover data saved', data: hoverData });
     } catch (error) {
@@ -74,7 +82,7 @@ app.post('/api/timeonpage', async (req, res) => {
     try {
         const { pageName, user, timeOnPage } = req.body;
 
-        const timeOnPageData = new TimeOnPageData({ pageName, user, timeOnPage });
+        const timeOnPageData = new TimeOnPageData({ pageName, user, timeOnPage, pid });
         await timeOnPageData.save();
 
         console.log(`Time on Page: ${timeOnPage}ms`);
@@ -93,18 +101,17 @@ app.get('/api/timeonpage', async (req, res) => {
     }
 });
 
-
-
+//Clicks Data
 app.post('/api/clicks', async (req, res) => {
     try {
-      const clickDataReq = req.body;
-      const clickData = new ClickData({ clickDataReq });
-      await clickData.save();
-      res.status(201).json({ message: 'Click data recorded', clickDataReq });
+        const { element, timestap, x, y, id, className, pageName, user, pid } = req.body;
+        const clickData = new ClickData({ element, timestap, x, y, id, className, pageName, user, pid });
+        await clickData.save();
+        res.status(201).json({ message: 'Click data recorded id:', id });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to record click data' });
+        res.status(500).json({ error: 'Failed to record click data' });
     }
-  });
+});
 
 
 

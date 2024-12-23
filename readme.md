@@ -72,8 +72,31 @@ docker exec -it bbprime-ui_bbprime-mongo_1 bash
 mongosh --port=20717
 use bbprime
 
+use BBPrimeAnalytics
+db.clickdatas.drop()
+db.hoverdatas.drop()
+db.timeonpagedatas.drop()
 
+
+### Start docker with build
+docker-compose up --build
+
+### Run frontend from command line
+docker stop bbprime-frontend-container
+cd frontend
+npm run start
+
+### Start webanalytics server
+cd webanalytics
+node server.js
 
 db.users.update({"username": 'phile16'}, {$set:{"isVerified": "true"}})
 db.users.update({"username": 'phile16'}, {$set:{"expires": undefined}})
 db.users.update({"username": 'phile16'}, {$set:{"isAdmin": "true"}})
+
+
+
+# Export/Backup Mongo
+docker exec bbprime-ui_bbprime-mongo_1 sh -c 'mongodump --port=27017 --archive' > bbprime-mongodb.dump
+
+# Restore Monggo

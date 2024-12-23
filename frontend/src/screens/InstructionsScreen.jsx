@@ -11,12 +11,15 @@ const Instructions = () => {
 
   return (
     <div className=' py-5'>
-      <TimeOnPageTracker onTimeTracked={handleTimeTracked} pageName="Instructions" user={userInfo.name} />
+      <TimeOnPageTracker onTimeTracked={handleTimeTracked} pageName="Instructions" user={userInfo.name} pid={sessionStorage.getItem("sPid")}/>
       <Container className='d-flex justify-content-center'>
         <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75'>
           <h1 className='text-center mb-4'>BBPRIME Instructions</h1>
           <p className='text-center mb-4'>
             Instructions stuff Goes Here
+          </p>
+          <p className='text-center mb-4'>
+            {sessionStorage.getItem("sPid")}
           </p>
           <div className='d-flex'>
             <Button variant='primary' href='/news' className='me-3'>

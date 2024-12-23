@@ -41,9 +41,10 @@ const NewsMarquee = ({ articles }) => {
 
         {articles &&
           articles.map((article, index) => (
-            <div>
-              <Card>
-                <h4 className='text-center mb-4'>{article[1]["title"]}</h4>
+            <div key={"marqueeDiv_" + index}>
+              <Card className='bbp-marquee-card' id={"marquee_" + article[1]["title"].replace(/[^a-z0-9]/gi, '_')+"_card"}>
+              <p className="marqueeCategory" id={"marquee_" + article[1]["title"].replace(/[^a-z0-9]/gi, '_') + "_category"} >{article[1]["category"]}</p>
+              <p className="marqueeTItle" id={"marquee_" + article[1]["title"].replace(/[^a-z0-9]/gi, '_') + "_title"} >{article[1]["title"]}</p>
               </Card>
             </div>
 

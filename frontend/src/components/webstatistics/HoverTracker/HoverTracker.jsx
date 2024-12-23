@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const HoverTracker = ({ onHoverEnd, children, pageName, user, controlId }) => {
+const HoverTracker = ({ onHoverEnd, children, pageName, user, controlId, pid }) => {
     const [hoverStart, setHoverStart] = useState(null);
     const handleMouseEnter = () => {
         setHoverStart(Date.now());
@@ -17,7 +17,7 @@ const HoverTracker = ({ onHoverEnd, children, pageName, user, controlId }) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ pageName, user, controlId, duration })
+                    body: JSON.stringify({ pageName, user, controlId, duration, pid })
                 });
             } catch (error) {
                 console.error('Failed to send hover data:', error);

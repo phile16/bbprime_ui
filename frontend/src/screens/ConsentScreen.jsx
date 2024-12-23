@@ -1,23 +1,24 @@
 import { Container, Card, Button, Form } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import FormContainer from '../components/FormContainer';
-
+import { useSelector, useDispatch } from 'react-redux';
 import HoverAnalyticsDisplay from '../components/webstatistics/HoverAnalyticsDisplay/HoverAnalyticsDisplay';
 import { TimeOnPageTracker } from '../components/webstatistics/TimeOnPageTracker/TimeOnPageTracker';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-
-const handleTimeTracked = (timeOnPage) => {
-  console.log(`Time spent on page: ${timeOnPage}ms`);
-};
 
 const Consent = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const [pid, setPid] = useState("");
 
+  useEffect(() => {
+    // Update session storage
+    sessionStorage.setItem("sPid", pid);
+  }, [pid]);
+  
 
   return (
     <div className=''>
-      <TimeOnPageTracker onTimeTracked={handleTimeTracked} pageName="Consent" user={userInfo.name} />
+      <TimeOnPageTracker pageName="Consent" user={userInfo.name} pid=""/>
       <Container className='d-flex justify-content-center'>
         <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75'>
           <h1 className='text-center mb-4'>BBPRIME Consent</h1>
@@ -32,7 +33,8 @@ const Consent = () => {
                 <Form.Control
                   type='text'
                   placeholder='Enter Prolific ID'
-
+                  value={pid}
+                  onChange={(e) => setPid(e.target.value)}
                 ></Form.Control>
               </Form.Group>
             </Form>
@@ -43,7 +45,6 @@ const Consent = () => {
           </Button>
 
         </Card>
-        <HoverAnalyticsDisplay />
       </Container>
 
     </div>
