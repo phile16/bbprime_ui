@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 
 /*
 Make sure anything we want to tracked has an ID
-was trying to take a global approach to this but this currently tracks the lowest element, maybe add a property to an element to track
+was trying to take a global approach to this but this currently tracks the lowest element
+Add ID to every element that needs to be tracked, make sure to use a naming scheme for easy rollup
 */
 
 
@@ -20,13 +21,14 @@ export const ClickTracker = ({ onClickTracked, pageName, user, pid }) => {
                 className: event.target.className || null,
                 pageName: pageName,
                 user: user,
-                pid: pid
+                pid: pid // prolific ID
             };
             // Trigger the callback to pass click data to the parent
             // Maybe add logic here with element property to track
             if (onClickTracked) {
                 onClickTracked(clickData);
             }
+            // Save to mongo
             // remove this hard coded URL
             fetch('http://localhost:5555/api/clicks', {
                 method: 'POST',

@@ -1,4 +1,5 @@
 import { Container, Card, Button } from 'react-bootstrap';
+import { useState, useEffect, useRef } from 'react';
 import parse from 'html-react-parser';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -6,6 +7,20 @@ import "react-multi-carousel/lib/styles.css";
 
 
 const NewsSlider = ({ articles }) => {
+  const containerRef = useRef(null);
+  // Add ID's to elements in the article content
+  // This really is some grandular tracking... 
+  useEffect(() => {
+    if (containerRef.current) {
+      const elements = containerRef.current.querySelectorAll('*');
+      elements.forEach((element, index) => {
+        element.id = containerRef.current.id + `-${index}-${element.tagName}`;
+        console.log(element.id);
+      });
+    }
+  }, [articles]);
+
+
 
   const responsive = {
     superLargeDesktop: {
@@ -38,10 +53,10 @@ const NewsSlider = ({ articles }) => {
         >
           {articles &&
             articles.map((article, index) => (
-              <div key={"NewssliderDiv_" + index}>
+              <div key={"NewsSliderDiv_" + index}>
                 <Card className="bbp-news-slides">
-                  <h3 className='' id={"NewsLatest_" + (article[1]["title"] + "_" + "_title").replace(/[^a-z0-9]/gi, '_')}>{article[1]["title"]}</h3>
-                  <div id={"NewsLatest_" + (article[1]["title"] + "_" + "_text").replace(/[^a-z0-9]/gi, '_')}>
+                  <h3 className='' id={"NewsSlider_" + (article[1]["title"]).replace(/[^a-z0-9]/gi, '') + "_title"}>{article[1]["title"]}</h3>
+                  <div id={"NewsSlider_" + (article[1]["title"]).replace(/[^a-z0-9]/gi, '') + "_content"} ref={containerRef}>
                     {parse(article[1]["content"])}
                   </div>
 

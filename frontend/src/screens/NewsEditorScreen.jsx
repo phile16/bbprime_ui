@@ -299,6 +299,10 @@ const NewsEditorScreen = () => {
         <Button onClick={deleteArticleHandler} variant='primary' className='mt-3'>
           Delete
         </Button>
+        &nbsp;
+        <Button href='/news' variant='primary' className='mt-3'>
+          News Page
+        </Button>        
 
         {isSaving && <Loader />}
       </Form>
